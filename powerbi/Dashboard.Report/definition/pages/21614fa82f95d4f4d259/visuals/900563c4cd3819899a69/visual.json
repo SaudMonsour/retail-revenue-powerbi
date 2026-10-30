@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "900563c4cd3819899a69",
+  "position": {
+    "x": 30,
+    "y": 788,
+    "z": 4,
+    "width": 1298,
+    "height": 42,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "£893,979.73 in negative-line value · investigate service codes and missing customer IDs before acting.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11pt",
+                      "color": "#147D92",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'£893,979.73 in negative-line value · investigate service codes and missing customer IDs before acting.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

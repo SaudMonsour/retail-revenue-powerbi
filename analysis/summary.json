@@ -1,0 +1,30 @@
+{
+  "source_rows": 541909,
+  "clean_rows": 534128,
+  "exact_duplicates_removed": 5268,
+  "excluded_rows": 2513,
+  "missing_customer_rows_source": 135080,
+  "missing_description_rows_source": 1454,
+  "unknown_customer_rows_retained": 132564,
+  "gross_sales_gbp": 10631048.74,
+  "returns_gbp": 893979.73,
+  "net_sales_gbp": 9737069.01,
+  "positive_sales_invoices": 19959,
+  "identified_purchasing_customers": 4338,
+  "repeat_customer_rate": 0.6558321807284463,
+  "return_value_rate": 0.08409139604791238,
+  "international_net_sales_share": 0.1600973319999095,
+  "start": "2010-12-01 08:26:00",
+  "end": "2011-12-09 12:50:00",
+  "incomplete_month": "2011-12",
+  "reconciliation_pence": {
+    "raw": 974774793,
+    "duplicates": 2174098,
+    "excluded": -1106206,
+    "retained": 973706901,
+    "difference": 0
+  },
+  "duplicate_policy": "Remove exact duplicates across all eight source columns; these may include indistinguishable real lines, so all removed rows are retained for audit. Do not deduplicate by invoice/product alone.",
+  "customer_policy": "Keep missing identifiers as Unknown. Do not impute an identity or discard their invoice value.",
+  "value_scope": "Signed invoice-line amount, positive prices only; includes service and mixed product codes. Not audited GAAP revenue, profit, or matched-return cohort rate."
+}

@@ -1,0 +1,13 @@
+{
+  "checks_passed": [
+    "clean row total",
+    "integer-pence financial reconciliation",
+    "signed gross/return agreement",
+    "anonymous customer retention",
+    "quantity and price policy",
+    "portable Python path configuration",
+    "raw source bytes match archive manifest"
+  ],
+  "count": 7,
+  "desktop_engine_not_tested": true
+}

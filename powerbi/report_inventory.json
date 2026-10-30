@@ -1,0 +1,122 @@
+{
+  "project": "retail-revenue-powerbi",
+  "pages": [
+    {
+      "name": "Executive overview",
+      "id": "b5c29f8cd83a67b6d4e5",
+      "visuals": 16,
+      "kpis": [
+        "Net Invoice Value",
+        "Gross Sales",
+        "Return Value Rate",
+        "Sales Invoices"
+      ],
+      "charts": [
+        {
+          "type": "lineChart",
+          "title": "Monthly invoice value · final month partial"
+        },
+        {
+          "type": "clusteredBarChart",
+          "title": "International markets · full-period groups"
+        },
+        {
+          "type": "clusteredColumnChart",
+          "title": "Sales and returns by month"
+        },
+        {
+          "type": "tableEx",
+          "title": "Country performance"
+        }
+      ]
+    },
+    {
+      "name": "Customers & products",
+      "id": "6775bd03056f67bc06a5",
+      "visuals": 16,
+      "kpis": [
+        "Identified Buyers",
+        "Repeat Buyer Rate",
+        "Average Sales Invoice",
+        "Unknown Customer Share"
+      ],
+      "charts": [
+        {
+          "type": "clusteredBarChart",
+          "title": "Product mix · full-period leading codes"
+        },
+        {
+          "type": "clusteredColumnChart",
+          "title": "Known versus anonymous value"
+        },
+        {
+          "type": "lineChart",
+          "title": "Sales invoices by month"
+        },
+        {
+          "type": "tableEx",
+          "title": "Product value and return exposure"
+        }
+      ]
+    },
+    {
+      "name": "Returns & coverage",
+      "id": "21614fa82f95d4f4d259",
+      "visuals": 16,
+      "kpis": [
+        "Returns Value",
+        "Return Value Rate",
+        "Unknown Customer Value",
+        "Invoice Lines"
+      ],
+      "charts": [
+        {
+          "type": "lineChart",
+          "title": "Monthly return value"
+        },
+        {
+          "type": "clusteredBarChart",
+          "title": "Return rate by market"
+        },
+        {
+          "type": "clusteredColumnChart",
+          "title": "Rows by customer identification"
+        },
+        {
+          "type": "tableEx",
+          "title": "Monthly reconciliation view"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    [
+      "FactSales",
+      "DateKey",
+      "DimDate",
+      "DateKey"
+    ],
+    [
+      "FactSales",
+      "ProductKey",
+      "DimProduct",
+      "ProductKey"
+    ],
+    [
+      "FactSales",
+      "CustomerKey",
+      "DimCustomer",
+      "CustomerKey"
+    ],
+    [
+      "FactSales",
+      "CountryKey",
+      "DimCountry",
+      "CountryKey"
+    ]
+  ],
+  "measures": 14,
+  "native_visuals_only": true,
+  "source_format": "PBIP + PBIR + TMSL",
+  "desktop_validation": "Not executed; Power BI Desktop unavailable in this environment"
+}

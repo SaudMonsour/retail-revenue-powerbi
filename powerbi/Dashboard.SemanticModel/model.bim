@@ -1,0 +1,586 @@
+{
+  "name": "Dashboard",
+  "compatibilityLevel": 1567,
+  "model": {
+    "culture": "en-GB",
+    "sourceQueryCulture": "en-GB",
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "expressions": [
+      {
+        "name": "DataRoot",
+        "kind": "m",
+        "expression": "\"C:\\PowerBI\\retail-revenue-powerbi\\data\\clean\\\" meta [IsParameterQuery=true, Type=\"Text\", IsParameterQueryRequired=true]",
+        "description": "Absolute path to this repository data/clean folder, including trailing slash. Set before refresh."
+      }
+    ],
+    "tables": [
+      {
+        "name": "DimCountry",
+        "lineageTag": "f55fc76c-de4c-5b2a-bfaf-7efc0b9dc6c2",
+        "columns": [
+          {
+            "name": "CountryKey",
+            "dataType": "string",
+            "sourceColumn": "CountryKey",
+            "summarizeBy": "none",
+            "lineageTag": "a5d4319b-29b6-5e3c-9308-8c3dadbb0d94",
+            "isKey": true
+          },
+          {
+            "name": "Market",
+            "dataType": "string",
+            "sourceColumn": "Market",
+            "summarizeBy": "none",
+            "lineageTag": "bc2a9569-b964-546b-9050-6260931417e3"
+          },
+          {
+            "name": "CountryGroup",
+            "dataType": "string",
+            "sourceColumn": "CountryGroup",
+            "summarizeBy": "none",
+            "lineageTag": "71ceb30a-93dc-5918-b4f2-af8562acd26e"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCountry",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataRoot & \"DimCountry.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    EmptyToNull = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(EmptyToNull, {{\"CountryKey\", type text}, {\"Market\", type text}, {\"CountryGroup\", type text}}, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimCustomer",
+        "lineageTag": "a1b0f85c-43f2-560c-8808-ba0deda1421a",
+        "columns": [
+          {
+            "name": "CustomerKey",
+            "dataType": "string",
+            "sourceColumn": "CustomerKey",
+            "summarizeBy": "none",
+            "lineageTag": "3311cdb5-8b6c-523e-82d6-d060153e0e3b",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Identified",
+            "dataType": "int64",
+            "sourceColumn": "Identified",
+            "summarizeBy": "none",
+            "lineageTag": "2efd2221-4e6e-5e62-97af-782506af9d5d"
+          },
+          {
+            "name": "CustomerType",
+            "dataType": "string",
+            "sourceColumn": "CustomerType",
+            "summarizeBy": "none",
+            "lineageTag": "49eec86c-a38e-5f1a-b082-4ff38793ecb5"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimCustomer",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataRoot & \"DimCustomer.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    EmptyToNull = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(EmptyToNull, {{\"CustomerKey\", type text}, {\"Identified\", Int64.Type}, {\"CustomerType\", type text}}, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimDate",
+        "lineageTag": "a17c13c4-9285-54cc-ae56-e888826f80d7",
+        "columns": [
+          {
+            "name": "Date",
+            "dataType": "dateTime",
+            "sourceColumn": "Date",
+            "summarizeBy": "none",
+            "lineageTag": "fa80b8ef-360e-5107-a1de-407057c521bf",
+            "formatString": "dd MMM yyyy"
+          },
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey",
+            "summarizeBy": "none",
+            "lineageTag": "26d1dc89-4a1d-5913-8eda-016e8c7e0481",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year",
+            "summarizeBy": "none",
+            "lineageTag": "ce5aaaa3-9cbc-5fd9-ab59-4352875fc3ee"
+          },
+          {
+            "name": "MonthNumber",
+            "dataType": "int64",
+            "sourceColumn": "MonthNumber",
+            "summarizeBy": "none",
+            "lineageTag": "6e1c84dd-5a29-5bc1-9731-33e13d853bc1"
+          },
+          {
+            "name": "MonthName",
+            "dataType": "string",
+            "sourceColumn": "MonthName",
+            "summarizeBy": "none",
+            "lineageTag": "49e8f42b-9104-5208-a19b-825c93d19b8e",
+            "sortByColumn": "MonthNumber"
+          },
+          {
+            "name": "YearMonth",
+            "dataType": "string",
+            "sourceColumn": "YearMonth",
+            "summarizeBy": "none",
+            "lineageTag": "155474bd-e6cf-5c6b-b463-d79b6dfb2cbc",
+            "sortByColumn": "YearMonthSort"
+          },
+          {
+            "name": "YearMonthSort",
+            "dataType": "int64",
+            "sourceColumn": "YearMonthSort",
+            "summarizeBy": "none",
+            "lineageTag": "d9cc477b-adf2-5d2d-9e21-873d1d0e6b27",
+            "isHidden": true
+          },
+          {
+            "name": "Weekday",
+            "dataType": "string",
+            "sourceColumn": "Weekday",
+            "summarizeBy": "none",
+            "lineageTag": "1fe2495e-993e-5db4-af44-6412cb7d6f13",
+            "sortByColumn": "WeekdayNumber"
+          },
+          {
+            "name": "WeekdayNumber",
+            "dataType": "int64",
+            "sourceColumn": "WeekdayNumber",
+            "summarizeBy": "none",
+            "lineageTag": "04ce2c6a-eb91-5682-adbb-67a350682ba7"
+          },
+          {
+            "name": "IsWeekend",
+            "dataType": "int64",
+            "sourceColumn": "IsWeekend",
+            "summarizeBy": "none",
+            "lineageTag": "2fccb7e3-e513-5ba6-ad91-ad9b389d6978"
+          },
+          {
+            "name": "IsCompleteMonth",
+            "dataType": "int64",
+            "sourceColumn": "IsCompleteMonth",
+            "summarizeBy": "none",
+            "lineageTag": "61366aad-ffe1-58c6-a65f-b1d40449211c"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimDate",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataRoot & \"DimDate.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    EmptyToNull = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(EmptyToNull, {{\"Date\", type date}, {\"DateKey\", Int64.Type}, {\"Year\", Int64.Type}, {\"MonthNumber\", Int64.Type}, {\"MonthName\", type text}, {\"YearMonth\", type text}, {\"YearMonthSort\", Int64.Type}, {\"Weekday\", type text}, {\"WeekdayNumber\", Int64.Type}, {\"IsWeekend\", Int64.Type}, {\"IsCompleteMonth\", Int64.Type}}, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "DimProduct",
+        "lineageTag": "7fa458ef-74ab-51d0-9bd8-ccabbbf1f378",
+        "columns": [
+          {
+            "name": "ProductKey",
+            "dataType": "string",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none",
+            "lineageTag": "0383ea94-14ac-522c-9046-428e6a2d1798",
+            "isHidden": true,
+            "isKey": true
+          },
+          {
+            "name": "Description",
+            "dataType": "string",
+            "sourceColumn": "Description",
+            "summarizeBy": "none",
+            "lineageTag": "924c51a4-91df-5c6d-8d78-9617448d66f9"
+          },
+          {
+            "name": "DescriptionVariants",
+            "dataType": "int64",
+            "sourceColumn": "DescriptionVariants",
+            "summarizeBy": "none",
+            "lineageTag": "b39c6400-9ce3-5945-848c-9cb2b16f8205"
+          },
+          {
+            "name": "LineCategory",
+            "dataType": "string",
+            "sourceColumn": "LineCategory",
+            "summarizeBy": "none",
+            "lineageTag": "5047cd18-c1ff-536f-b39b-34b1ab630742"
+          },
+          {
+            "name": "ProductFocus",
+            "dataType": "string",
+            "sourceColumn": "ProductFocus",
+            "summarizeBy": "none",
+            "lineageTag": "7d5dfcd1-a202-5365-b48f-bd672239d955"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "DimProduct",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataRoot & \"DimProduct.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    EmptyToNull = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(EmptyToNull, {{\"ProductKey\", type text}, {\"Description\", type text}, {\"DescriptionVariants\", Int64.Type}, {\"LineCategory\", type text}, {\"ProductFocus\", type text}}, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "FactSales",
+        "lineageTag": "860cbfa3-549f-58e4-907a-55829c6f18d1",
+        "columns": [
+          {
+            "name": "SourceRow",
+            "dataType": "int64",
+            "sourceColumn": "SourceRow",
+            "summarizeBy": "none",
+            "lineageTag": "1246e123-8f2f-57c3-8673-67442bfbcbfe",
+            "isHidden": true
+          },
+          {
+            "name": "InvoiceKey",
+            "dataType": "string",
+            "sourceColumn": "InvoiceKey",
+            "summarizeBy": "none",
+            "lineageTag": "0e43bb04-9b61-5096-8014-8d6be731c1ec",
+            "isHidden": true
+          },
+          {
+            "name": "ProductKey",
+            "dataType": "string",
+            "sourceColumn": "ProductKey",
+            "summarizeBy": "none",
+            "lineageTag": "18c7c5a5-c882-51d5-a6cb-5fde49ef93a6",
+            "isHidden": true
+          },
+          {
+            "name": "CustomerKey",
+            "dataType": "string",
+            "sourceColumn": "CustomerKey",
+            "summarizeBy": "none",
+            "lineageTag": "868470ac-9dfc-5360-a7ac-8859190e559b",
+            "isHidden": true
+          },
+          {
+            "name": "CountryKey",
+            "dataType": "string",
+            "sourceColumn": "CountryKey",
+            "summarizeBy": "none",
+            "lineageTag": "c87691b9-249d-5c27-83f0-7393ae9ed386",
+            "isHidden": true
+          },
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey",
+            "summarizeBy": "none",
+            "lineageTag": "d6691338-1094-5bc7-b25f-c950e500bde7",
+            "isHidden": true
+          },
+          {
+            "name": "Quantity",
+            "dataType": "int64",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "none",
+            "lineageTag": "acc37f9b-f6e8-5cf1-842d-2718890db893"
+          },
+          {
+            "name": "UnitPrice",
+            "dataType": "double",
+            "sourceColumn": "UnitPrice",
+            "summarizeBy": "none",
+            "lineageTag": "a2d55096-8672-5a39-a755-2f272be244f6"
+          },
+          {
+            "name": "LineAmountPence",
+            "dataType": "int64",
+            "sourceColumn": "LineAmountPence",
+            "summarizeBy": "none",
+            "lineageTag": "bd9794cc-6ef5-5b67-bcce-b1f7e9afa019"
+          },
+          {
+            "name": "GrossSalesGBP",
+            "dataType": "double",
+            "sourceColumn": "GrossSalesGBP",
+            "summarizeBy": "none",
+            "lineageTag": "ef5d4de2-24a6-5110-b7f1-172af81c1332"
+          },
+          {
+            "name": "ReturnsGBP",
+            "dataType": "double",
+            "sourceColumn": "ReturnsGBP",
+            "summarizeBy": "none",
+            "lineageTag": "f6a4683a-1247-5d68-9316-ecf8b5c2cabe"
+          },
+          {
+            "name": "NetSalesGBP",
+            "dataType": "double",
+            "sourceColumn": "NetSalesGBP",
+            "summarizeBy": "none",
+            "lineageTag": "f11d9158-5e8a-54e6-9935-9cc29c049a32"
+          },
+          {
+            "name": "IsSale",
+            "dataType": "int64",
+            "sourceColumn": "IsSale",
+            "summarizeBy": "none",
+            "lineageTag": "75ca2f70-34ff-5f8f-b6e8-dc28d0932b94"
+          },
+          {
+            "name": "IsReturn",
+            "dataType": "int64",
+            "sourceColumn": "IsReturn",
+            "summarizeBy": "none",
+            "lineageTag": "89e1c747-e7fa-54ef-885c-10107abe4522"
+          },
+          {
+            "name": "CancellationFlag",
+            "dataType": "int64",
+            "sourceColumn": "CancellationFlag",
+            "summarizeBy": "none",
+            "lineageTag": "61ce235f-eee6-5dd9-afd3-67ff9bebe778"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "FactSales",
+            "mode": "import",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = Csv.Document(File.Contents(DataRoot & \"FactSales.csv\"), [Delimiter=\",\", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),",
+                "    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),",
+                "    EmptyToNull = Table.ReplaceValue(Headers, \"\", null, Replacer.ReplaceValue, Table.ColumnNames(Headers)),",
+                "    Typed = Table.TransformColumnTypes(EmptyToNull, {{\"SourceRow\", Int64.Type}, {\"InvoiceKey\", type text}, {\"ProductKey\", type text}, {\"CustomerKey\", type text}, {\"CountryKey\", type text}, {\"DateKey\", Int64.Type}, {\"Quantity\", Int64.Type}, {\"UnitPrice\", type number}, {\"LineAmountPence\", Int64.Type}, {\"GrossSalesGBP\", type number}, {\"ReturnsGBP\", type number}, {\"NetSalesGBP\", type number}, {\"IsSale\", Int64.Type}, {\"IsReturn\", Int64.Type}, {\"CancellationFlag\", Int64.Type}}, \"en-GB\")",
+                "in",
+                "    Typed"
+              ]
+            }
+          }
+        ],
+        "measures": [
+          {
+            "name": "Net Invoice Value",
+            "expression": "SUM(FactSales[LineAmountPence]) / 100",
+            "formatString": "£#,0.00;(£#,0.00)",
+            "displayFolder": "Performance",
+            "description": "Net Invoice Value. Format: £#,0.00;(£#,0.00). Definition: SUM(FactSales[LineAmountPence]) / 100. See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "ceb55081-1752-53f6-99be-c0750214e327"
+          },
+          {
+            "name": "Gross Sales",
+            "expression": "SUM(FactSales[GrossSalesGBP])",
+            "formatString": "£#,0.00;(£#,0.00)",
+            "displayFolder": "Performance",
+            "description": "Gross Sales. Format: £#,0.00;(£#,0.00). Definition: SUM(FactSales[GrossSalesGBP]). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "8983e07a-d65f-560b-adbe-7d977ff3842c"
+          },
+          {
+            "name": "Returns Value",
+            "expression": "SUM(FactSales[ReturnsGBP])",
+            "formatString": "£#,0.00;(£#,0.00)",
+            "displayFolder": "Performance",
+            "description": "Returns Value. Format: £#,0.00;(£#,0.00). Definition: SUM(FactSales[ReturnsGBP]). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "f38df204-f59d-5052-95c3-31503b9bd9e0"
+          },
+          {
+            "name": "Return Value Rate",
+            "expression": "DIVIDE([Returns Value], [Gross Sales])",
+            "formatString": "0.0%",
+            "displayFolder": "Performance",
+            "description": "Return Value Rate. Format: 0.0%. Definition: DIVIDE([Returns Value], [Gross Sales]). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "20375803-680f-5722-8d1f-99403b9ed5d3"
+          },
+          {
+            "name": "Sales Invoices",
+            "expression": "CALCULATE(DISTINCTCOUNT(FactSales[InvoiceKey]), FactSales[IsSale] = 1)",
+            "formatString": "#,0",
+            "displayFolder": "Performance",
+            "description": "Sales Invoices. Format: #,0. Definition: CALCULATE(DISTINCTCOUNT(FactSales[InvoiceKey]), FactSales[IsSale] = 1). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "40454d6a-a65c-55fa-9e8b-559454e86500"
+          },
+          {
+            "name": "Average Sales Invoice",
+            "expression": "DIVIDE([Gross Sales], [Sales Invoices])",
+            "formatString": "£#,0.00",
+            "displayFolder": "Performance",
+            "description": "Average Sales Invoice. Format: £#,0.00. Definition: DIVIDE([Gross Sales], [Sales Invoices]). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "44dd74a3-f7c0-5570-bb55-4a9f277e6c90"
+          },
+          {
+            "name": "Identified Buyers",
+            "expression": "CALCULATE(DISTINCTCOUNT(FactSales[CustomerKey]), FactSales[IsSale] = 1, FactSales[CustomerKey] <> \"Unknown\")",
+            "formatString": "#,0",
+            "displayFolder": "Performance",
+            "description": "Identified Buyers. Format: #,0. Definition: CALCULATE(DISTINCTCOUNT(FactSales[CustomerKey]), FactSales[IsSale] = 1, FactSales[CustomerKey] <> \"Unknown\"). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "10ac4a93-1775-50fc-a464-352bfe2d8ad9"
+          },
+          {
+            "name": "Net Units",
+            "expression": "SUM(FactSales[Quantity])",
+            "formatString": "#,0",
+            "displayFolder": "Performance",
+            "description": "Net Units. Format: #,0. Definition: SUM(FactSales[Quantity]). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "fc0f2f01-d2d1-585a-a5f3-2aaa38a53ee3"
+          },
+          {
+            "name": "Unknown Customer Value",
+            "expression": "CALCULATE([Net Invoice Value], FactSales[CustomerKey] = \"Unknown\")",
+            "formatString": "£#,0.00",
+            "displayFolder": "Quality and coverage",
+            "description": "Unknown Customer Value. Format: £#,0.00. Definition: CALCULATE([Net Invoice Value], FactSales[CustomerKey] = \"Unknown\"). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "7a4a95f4-44a6-50bd-87c6-961969defce3"
+          },
+          {
+            "name": "Unknown Customer Share",
+            "expression": "DIVIDE([Unknown Customer Value], [Net Invoice Value])",
+            "formatString": "0.0%",
+            "displayFolder": "Quality and coverage",
+            "description": "Unknown Customer Share. Format: 0.0%. Definition: DIVIDE([Unknown Customer Value], [Net Invoice Value]). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "967f554f-3a36-5882-a38f-ee974d7fe994"
+          },
+          {
+            "name": "International Invoice Value",
+            "expression": "CALCULATE([Net Invoice Value], KEEPFILTERS(DimCountry[Market] = \"International\"))",
+            "formatString": "£#,0.00",
+            "displayFolder": "Performance",
+            "description": "International Invoice Value. Format: £#,0.00. Definition: CALCULATE([Net Invoice Value], KEEPFILTERS(DimCountry[Market] = \"International\")). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "58f7e382-69b3-5653-a581-68098fa8caa7"
+          },
+          {
+            "name": "Repeat Buyer Rate",
+            "expression": "VAR Buyers = FILTER(VALUES(FactSales[CustomerKey]), FactSales[CustomerKey] <> \"Unknown\" && CALCULATE([Sales Invoices]) > 0) VAR RepeatBuyers = FILTER(Buyers, CALCULATE([Sales Invoices]) > 1) RETURN DIVIDE(COUNTROWS(RepeatBuyers), COUNTROWS(Buyers))",
+            "formatString": "0.0%",
+            "displayFolder": "Performance",
+            "description": "Repeat Buyer Rate. Format: 0.0%. Definition: VAR Buyers = FILTER(VALUES(FactSales[CustomerKey]), FactSales[CustomerKey] <> \"Unknown\" && CALCULATE([Sales Invoices]) > 0) VAR RepeatBuyers = FILTER(Buyers, CALCULATE([Sales Invoices]) > 1) RETURN DIVIDE(COUNTROWS(RepeatBuyers), COUNTROWS(Buyers)). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "400bd56b-f8f8-59f6-8030-af7a80f341ca"
+          },
+          {
+            "name": "Invoice Lines",
+            "expression": "COUNTROWS(FactSales)",
+            "formatString": "#,0",
+            "displayFolder": "Performance",
+            "description": "Invoice Lines. Format: #,0. Definition: COUNTROWS(FactSales). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "08e7ac2e-4600-5d03-8bb6-572f6ea3213f"
+          },
+          {
+            "name": "Latest Complete Month Value",
+            "expression": "VAR LastMonth = CALCULATE(MAX(DimDate[YearMonthSort]), REMOVEFILTERS(DimDate), DimDate[IsCompleteMonth] = 1) RETURN CALCULATE([Net Invoice Value], REMOVEFILTERS(DimDate), DimDate[YearMonthSort] = LastMonth)",
+            "formatString": "£#,0.00",
+            "displayFolder": "Performance",
+            "description": "Latest Complete Month Value. Format: £#,0.00. Definition: VAR LastMonth = CALCULATE(MAX(DimDate[YearMonthSort]), REMOVEFILTERS(DimDate), DimDate[IsCompleteMonth] = 1) RETURN CALCULATE([Net Invoice Value], REMOVEFILTERS(DimDate), DimDate[YearMonthSort] = LastMonth). See docs/METRIC_CONTRACT.md for denominator and interpretation limits.",
+            "lineageTag": "98353271-3e2e-592a-98aa-4136b17e86e4"
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "bdbb8053-2368-595a-89a0-912b81fd1074",
+        "fromTable": "FactSales",
+        "fromColumn": "DateKey",
+        "toTable": "DimDate",
+        "toColumn": "DateKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "d3520d5e-6d30-5aee-8c5a-2a8db1bbf434",
+        "fromTable": "FactSales",
+        "fromColumn": "ProductKey",
+        "toTable": "DimProduct",
+        "toColumn": "ProductKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "7046a93c-8f18-5a11-aa66-d4d9971da351",
+        "fromTable": "FactSales",
+        "fromColumn": "CustomerKey",
+        "toTable": "DimCustomer",
+        "toColumn": "CustomerKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      },
+      {
+        "name": "a40e9571-3f1e-5857-8d31-4c93924a40a0",
+        "fromTable": "FactSales",
+        "fromColumn": "CountryKey",
+        "toTable": "DimCountry",
+        "toColumn": "CountryKey",
+        "fromCardinality": "many",
+        "toCardinality": "one",
+        "crossFilteringBehavior": "oneDirection",
+        "isActive": true
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      }
+    ]
+  }
+}

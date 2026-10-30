@@ -1,0 +1,8 @@
+measure,value
+source_rows,541909
+clean_rows,534128
+exact_duplicates_removed,5268
+excluded_rows,2513
+missing_customer_rows_source,135080
+missing_description_rows_source,1454
+unknown_customer_rows_retained,132564

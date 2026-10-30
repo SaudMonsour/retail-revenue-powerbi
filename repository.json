@@ -1,0 +1,16 @@
+{
+  "name": "retail-revenue-powerbi",
+  "description": "Power BI retail analysis with audited transaction cleaning, sales and returns reconciliation, customer coverage, and an interactive star schema.",
+  "topics": [
+    "power-bi",
+    "data-cleaning",
+    "data-analysis",
+    "dax",
+    "power-query",
+    "star-schema",
+    "business-intelligence",
+    "uci"
+  ],
+  "visibility": "public",
+  "publication_status": "Published to the matching public GitHub repository"
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
+  "name": "e99ff0d0711e4e1a23f6",
+  "position": {
+    "x": 30,
+    "y": 788,
+    "z": 4,
+    "width": 1298,
+    "height": 42,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "4,338 identified buyers · 65.6% repeat-buyer share among identified purchasers; anonymous sales remain included.",
+                    "textStyle": {
+                      "fontFamily": "Segoe UI",
+                      "fontSize": "11pt",
+                      "color": "#147D92",
+                      "fontWeight": "normal"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "general": [
+        {
+          "properties": {
+            "altText": {
+              "expr": {
+                "Literal": {
+                  "Value": "'4,338 identified buyers · 65.6% repeat-buyer share among identified purchasers; anonymous sales remain included.'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

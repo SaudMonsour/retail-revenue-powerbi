@@ -1,0 +1,150 @@
+{
+  "before": [
+    {
+      "column": "InvoiceNo",
+      "dtype": "object",
+      "missing": 0,
+      "distinct": 25900
+    },
+    {
+      "column": "StockCode",
+      "dtype": "object",
+      "missing": 0,
+      "distinct": 4070
+    },
+    {
+      "column": "Description",
+      "dtype": "object",
+      "missing": 1454,
+      "distinct": 4223
+    },
+    {
+      "column": "Quantity",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 722
+    },
+    {
+      "column": "InvoiceDate",
+      "dtype": "datetime64[ns]",
+      "missing": 0,
+      "distinct": 23260
+    },
+    {
+      "column": "UnitPrice",
+      "dtype": "float64",
+      "missing": 0,
+      "distinct": 1630
+    },
+    {
+      "column": "CustomerID",
+      "dtype": "float64",
+      "missing": 135080,
+      "distinct": 4372
+    },
+    {
+      "column": "Country",
+      "dtype": "object",
+      "missing": 0,
+      "distinct": 38
+    }
+  ],
+  "after": [
+    {
+      "column": "SourceRow",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 534128
+    },
+    {
+      "column": "InvoiceKey",
+      "dtype": "string",
+      "missing": 0,
+      "distinct": 23795
+    },
+    {
+      "column": "ProductKey",
+      "dtype": "string",
+      "missing": 0,
+      "distinct": 3937
+    },
+    {
+      "column": "CustomerKey",
+      "dtype": "object",
+      "missing": 0,
+      "distinct": 4372
+    },
+    {
+      "column": "CountryKey",
+      "dtype": "string",
+      "missing": 0,
+      "distinct": 38
+    },
+    {
+      "column": "DateKey",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 305
+    },
+    {
+      "column": "Quantity",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 510
+    },
+    {
+      "column": "UnitPrice",
+      "dtype": "float64",
+      "missing": 0,
+      "distinct": 1627
+    },
+    {
+      "column": "LineAmountPence",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 5825
+    },
+    {
+      "column": "GrossSalesGBP",
+      "dtype": "float64",
+      "missing": 0,
+      "distinct": 4596
+    },
+    {
+      "column": "ReturnsGBP",
+      "dtype": "float64",
+      "missing": 0,
+      "distinct": 1230
+    },
+    {
+      "column": "NetSalesGBP",
+      "dtype": "float64",
+      "missing": 0,
+      "distinct": 5825
+    },
+    {
+      "column": "IsSale",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 2
+    },
+    {
+      "column": "IsReturn",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 2
+    },
+    {
+      "column": "CancellationFlag",
+      "dtype": "int64",
+      "missing": 0,
+      "distinct": 2
+    }
+  ],
+  "exclusions": {
+    "Non-positive unit price": 2512,
+    "Non-standard invoice identifier": 1
+  },
+  "duplicate_policy": "Remove exact duplicates across all eight source columns; these may include indistinguishable real lines, so all removed rows are retained for audit. Do not deduplicate by invoice/product alone.",
+  "raw_retained": true
+}

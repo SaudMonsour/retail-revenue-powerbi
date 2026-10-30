@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-30",
+  "python": "3.12.14",
+  "pandas": "2.2.3",
+  "numpy": "2.3.5",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.39",
+  "source_selected_files": [
+    "Online Retail.xlsx",
+    "source_manifest.json"
+  ],
+  "hashes": {
+    "data/clean/DimDate.csv": "b690a69c8919489e4c05e3d5b198ef8d89e337b18af8beea622cd21b9abf2b53",
+    "data/clean/FactSales.csv": "0deda943fe4429db2801473670927b82290e91d9ace53d3ddf5d9b32483afd1b",
+    "data/clean/DimProduct.csv": "a0c5abf1dd392bdcc246f3784b9d587fca28f4f01648c5a5f092aa070159aab9",
+    "data/clean/DimCountry.csv": "77bb0537219ad6192e615b60f45f2be1dd84546479a8127643c6f31b2eec681c",
+    "data/clean/DimCustomer.csv": "62406a139a31528133f8aa8bc8141506f3cf3c6364e4e4d8a5ea12ce65bfbdd5",
+    "data/raw/source_manifest.json": "453a558506978d7c82052e4417d0129a9c0b148666f5a4933d89a7d607de723a",
+    "data/raw/Online Retail.xlsx": "43465a06f2ccf7c8b5bd2892bc7defb52f97487934fe93b16ae4c3936424676d"
+  },
+  "native_desktop_status": "Not executed",
+  "publication_status": "Prepared for matching public GitHub repository"
+}
