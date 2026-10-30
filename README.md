@@ -72,3 +72,5 @@ Prepared for Saud Alotaibi with automated implementation assistance. Source data
 ## Retail snapshot packaging
 
 The large cleaned fact table is stored losslessly as `data/clean/FactSales.csv.gz`. Run either supplied path-configuration helper before opening Power BI; it also expands the CSV used by the M imports. The decompressed bytes were checked against the complete cleaned table. The cleaning script can also regenerate the CSV from the raw snapshot. No records were sampled or removed for upload.
+
+The unmodified Excel source is transported in three binary parts under `data/raw/` to fit upload limits. Either configuration helper reassembles it and verifies the original SHA-256. The parts were compared byte-for-byte with the complete source; no source content was altered.

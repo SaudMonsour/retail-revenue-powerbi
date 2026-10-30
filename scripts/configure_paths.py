@@ -1,7 +1,13 @@
 from pathlib import Path
-import json, gzip, shutil
+import json, gzip, shutil, hashlib
 root=Path(__file__).resolve().parents[1]
-snapshot=root/'data/clean/FactSales.csv.gz'
+parts_manifest=root/'data/raw/snapshot_parts.json'
+if parts_manifest.exists():
+ parts=json.loads(parts_manifest.read_text())
+ assembled=b''.join((parts_manifest.parent/e['name']).read_bytes() for e in parts['parts'])
+ if hashlib.sha256(assembled).hexdigest()!=parts['sha256']:raise ValueError('Source snapshot checksum mismatch')
+ (parts_manifest.parent/parts['output']).write_bytes(assembled)
+snapshot=root/'data/clean/FactSales.csv.gz' 
 output=root/'data/clean/FactSales.csv'
 if snapshot.exists():
  with gzip.open(snapshot,'rb') as source, output.open('wb') as target: shutil.copyfileobj(source,target)

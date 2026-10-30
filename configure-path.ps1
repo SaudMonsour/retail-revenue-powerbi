@@ -1,6 +1,20 @@
 $ErrorActionPreference = 'Stop'
 $Root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $DataRoot = (Resolve-Path (Join-Path $Root 'data\clean')).Path + '\'
+$PartsFile = Join-Path $Root 'data\raw\snapshot_parts.json'
+if (Test-Path -LiteralPath $PartsFile) {
+  $Parts = Get-Content -LiteralPath $PartsFile -Raw | ConvertFrom-Json
+  $RawFolder = Join-Path $Root 'data\raw'
+  $Target = Join-Path $RawFolder $Parts.output
+  $Destination = [System.IO.File]::Create($Target)
+  try {
+    foreach ($Part in $Parts.parts) {
+      $PartStream = [System.IO.File]::OpenRead((Join-Path $RawFolder $Part.name))
+      try { $PartStream.CopyTo($Destination) } finally { $PartStream.Dispose() }
+    }
+  } finally { $Destination.Dispose() }
+  if ((Get-FileHash -LiteralPath $Target -Algorithm SHA256).Hash.ToLower() -ne $Parts.sha256) { throw 'Source snapshot checksum mismatch' }
+}
 $Compressed = Join-Path $Root 'data\clean\FactSales.csv.gz'
 $Expanded = Join-Path $Root 'data\clean\FactSales.csv'
 if (Test-Path -LiteralPath $Compressed) {

@@ -9,3 +9,6 @@ data/raw/source.zip
 
 # Expanded by either configuration helper before Desktop refresh
 data/clean/FactSales.csv
+
+# Reassembled and checksum-verified by configuration helpers
+data/raw/Online Retail.xlsx
